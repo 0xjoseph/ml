@@ -897,12 +897,26 @@ class Ones(Numtrix):
     def __init__(self, h, w=None):
         super(Ones, self).__init__(1.0, h, w)
 
-# Class returning a matrix containing random values
 class Randtrix(Matrix):
+    '''Class returning a matrix containing random values:
+    
+    Constructor:
+        h (int): The height (number of rows) of the matrix.
+        w (int): The width (number of columns) of the matrix. Defaults to None,
+            resulting in a square matrix.
+        nrange (float): The maximum value of numbers. Applicable in non-normal-
+            distribution mode.
+        normal (tuple): Tuple defining the parameters of a normal distribution.
+            Defaults to an empty tuple, resulting in pseudo-random (non-normal)
+            ditribution.
+        modify (callable): Function called on every element of the matrix.
+            Defaults to returning the values as they are.
+    '''
+
     def __init__(self, h, w=None, nrange=1, normal=(), modify=lambda l: l):
-        data = [[random.normalvariate(normal[0], normal[1]) if normal
-                  else modify(random.random() * nrange)
-                  for j in xrange(w or h)] for i in xrange(h)]
+        data = [ [ modify(random.normalvariate(*normal) if normal
+                          else random.random() * nrange)
+                   for j in xrange(w or h)] for i in xrange(h) ]
         super(Randtrix, self).__init__(*data)
 # Class returning a matrix containing normally distributed random values
 class NRandtrix(Randtrix):
