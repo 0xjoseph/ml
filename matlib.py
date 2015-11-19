@@ -914,24 +914,36 @@ class Randtrix(Matrix):
     '''
 
     def __init__(self, h, w=None, nrange=1, normal=(), modify=lambda l: l):
+        # Prepare data
         data = [ [ modify(random.normalvariate(*normal) if normal
                           else random.random() * nrange)
                    for j in xrange(w or h)] for i in xrange(h) ]
+        # Construct using super-class Matrix
         super(Randtrix, self).__init__(*data)
-# Class returning a matrix containing normally distributed random values
+
 class NRandtrix(Randtrix):
+    '''Subclass of Randtrix for normally distributed random numbers.
+    
+    Constructor:
+        h (int): The height (number of rows) of the matrix.
+        w (int): The width (number of columns) of the matrix. Defaults to None,
+            resulting in a square matrix.
+        mu, sigma (float, float): Parameters of the normal distribution. Default
+            respectively to 0, 1.    
+    '''
     def __init__(self, h, w=None, mu=0, sigma=1):
+        # Construct using the super-class Randtrix
         super(NRandtrix, self).__init__(h, w, normal=(mu, sigma))
 
-# Identity matrix
 class Identity(Matrix):
+    '''Subclass of Matrix for Identity Matrix.'''
     def __init__(self, n):
         data = map(lambda i: [0]*i + [1] + [0]*(n-i-1), xrange(n)) if n > 1 \
                else [ [1] ]
         super(Identity, self).__init__(*data)
 
-# Lottery matrix, just for fun
 class Lottery(Matrix):
+    '''Lottery Matrix, just for fun.'''
     def __init__(self, n=6, nrange=42):
         # Adjust parameters
         n, nrange = int(n), int(nrange) + 1
@@ -948,13 +960,17 @@ class Lottery(Matrix):
         # Instantiate
         super(Lottery, self).__init__(draw)
 
+'''Functions adapted to Matrices:'''
 def exp(M):
+    '''exp'''
     return M.apply(math.exp) if isinstance(M, Matrix) else math.exp(M)
 
 def log(M, base=math.e):
+    '''log'''
     return (M.apply(lambda x: math.log(x, base))
             if isinstance(M, Matrix) else math.log(M, base))
 
-def pow(M, p):
-    return (M.apply(lambda x: math.pow(x, p))
-            if isinstance(M, Matrix) else math.pow(M, p))
+#def pow(M, p):
+#    '''pow'''
+#    return (M.apply(lambda x: math.pow(x, p))
+#            if isinstance(M, Matrix) else math.pow(M, p))
