@@ -1,6 +1,6 @@
 # ml
 
-Part of the <a href="https://www.coursera.org/learn/machine-learning/home/welcome">Stanford machine learning course on Coursera</a>,  I decided to implement the learned skills using Python, and without dependence on external packages such as <a href="http://www.numpy.org/">NumPy</p>.
+Part of the <a href="https://www.coursera.org/learn/machine-learning/home/welcome">Stanford machine learning course on Coursera</a>,  I decided to implement the learned skills using Python, and without dependence on external packages such as <a href="http://www.numpy.org/">NumPy</a>.
 
 <a href="https://github.com/choufani/ml/blob/master/LICENSE">License</a>: WFTPL (<a href="http://www.wtfpl.net/">DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE</a>)
 
